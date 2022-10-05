@@ -28,6 +28,9 @@ class TestTagsValidation(TestCase):
         assert ["foo", "bar"] == validate_tags("  , foo,    bar,   ")
         assert ["foo", "bar"] == validate_tags(["foo", "bar"])
         assert ["foo", "bar"] == validate_tags(["foo", "bar", 1, 2])
+        # Polyaxon UI, "copy UUIDs" copies bar separated string
+        assert ["foo", "bar"] == validate_tags("foo|bar")
+        assert ["foo", "bar"] == validate_tags("  | foo|    bar|   ")
         assert [] == validate_tags([{}, {}, 1, 2])
 
     def test_validate_tags_with_yaml(self):
